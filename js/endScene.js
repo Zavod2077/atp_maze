@@ -157,7 +157,7 @@ class EndScene extends Phaser.Scene{
 		var xhr = new XMLHttpRequest();
 		
 		var json = JSON.stringify({
-			cipher: 123456,
+			cipher: cipher,
 			name: name,
 			surname: surname,
 			player_class: player_class,
@@ -165,7 +165,7 @@ class EndScene extends Phaser.Scene{
 			score: Number(total_score)
 		});
 		
-		xhr.open("POST","HTTPS://Bulat102.pythonanywhere.com/set_score/atp",true);
+		xhr.open("POST","HTTPS://zavod2077.pythonanywhere.com/set_score/atp",true);
 		xhr.setRequestHeader("Content-type",'application/json; charset=utf-8');
 			
 		xhr.send(json);
@@ -212,10 +212,10 @@ class EndScene extends Phaser.Scene{
 		var xhr = new XMLHttpRequest();
 		var scene = this;
 		var json = JSON.stringify({
-			cipher: 123456
+			cipher: cipher
 		});
 		
-		xhr.open("POST","HTTPS://Bulat102.pythonanywhere.com/get_score/atp_get",true);
+		xhr.open("POST","HTTPS://zavod2077.pythonanywhere.com/get_score/atp_get",true);
 		xhr.setRequestHeader("Content-type",'application/json; charset=utf-8');
 			
 		xhr.send(json);

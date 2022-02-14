@@ -4,8 +4,18 @@ class GameScene extends Phaser.Scene{
 	}
 	
 	init(){
+		//Если жизни все истрачены - бонус за отставшееся время не добавляется, остаются только бонусы за верные ответы
+		
+		//time_amount - время игры в миллисекундах
 		this.time_amount = 300*1000;
+		//Очки за один верный ответ
+		this.true_answ_score = 50;
+		
+		//Размер мелкого значка на карте и при перетаскивании в доле единицы
+		this.small_scale = 0.57
+		
 		this.score = 0;
+		
 	}
 	
 	preload(){
@@ -33,13 +43,30 @@ class GameScene extends Phaser.Scene{
 		
 		
 		//Координаты мест для значков
+		//Есть идентификатор связности мест значков (bond) - нужен для выделения 2-х мест датчиков, где неважно какой датчик на какое из 2-х мест ставить.
+		//У двух связных мест есть ссылка на друг друга в индентификаторе bond
+		//данную выгрузку (this.spots) координат для новой карты завода можно сделать в приложении для расстановки мест (отдельная папка)
 		this.spots =[{"x":402,"y":195,"number":0},{"x":408,"y":355,"number":3},{"x":484,"y":128,"number":2},{"x":475,"y":82,"number":1},{"x":826,"y":55,"number":3},{"x":683,"y":311,"number":1},{"x":652,"y":356,"number":2},{"x":616,"y":423,"number":3},{"x":617,"y":475,"number":0},{"x":606,"y":554,"number":3},{"x":476,"y":476,"number":2},{"x":892,"y":484,"number":3}];
 
+		//Задаем значения bonded для конкретных мест датчиков по координатам
+		for(let spot_i = 0; spot_i < this.spots.length){
+			this.spots[spot_i].bond = this.spots[spot_i] //ссылка на самого себя
+			//два датчика одного типа
+			if(this.spots[spot_i].х == 476 & this.spots[spot_i].y == 476){
+				for(let spot_j = 0; spot_j < this.spots.length){
+					if(this.spots[spot_j].х == 617 & this.spots[spot_j].y == 475){
+						this.spots[spot_i].bond = this.spots[spot_j]
+						this.spots[spot_j].bond = this.spots[spot_i]
+					}
+				}
+			}
+		}
+		
 		this.new_sensors=[
-			{x:150, y: 90, amount:0, name: 'level'},
-			{x:150, y: 190, amount:0, name: 'pressure'},
-			{x:150, y: 390, amount:0, name: 'temperature'},
-			{x:150, y: 290, amount:0, name: 'flow'}
+			{x:150, y: 90, amount:0, name: 'level'},//number и type - тип датчика 0
+			{x:150, y: 190, amount:0, name: 'pressure'},//number и type - тип датчика 1
+			{x:150, y: 390, amount:0, name: 'temperature'},//number и type - тип датчика 2
+			{x:150, y: 290, amount:0, name: 'flow'}//number и type - тип датчика 3
 		];
 		//Расставляем названия значков на панельке
 		let sensor_text_format = {fontSize:'16px', fontStyle:'bold', color:'#000000', align:'left'};
@@ -137,7 +164,7 @@ class GameScene extends Phaser.Scene{
 		this.input.on('dragstart', function(pointer, gameObject, dragX, dragY){
 			gameObject.x = pointer.position.x;
 			gameObject.y = pointer.position.y;
-			gameObject.setScale(0.57);
+			gameObject.setScale(this.small_scale);
 			gameObject.scene.show_big_sensor(gameObject.type,false); // Прячем большую иконку датчика ( для телефонов)
 		});
 		
@@ -149,17 +176,27 @@ class GameScene extends Phaser.Scene{
 		this.input.on('dragend', function(pointer, gameObject){
 			let throw_back = true; //Флаг - нужно ли возвращать на базу иконку
 			for(let i=0; i<gameObject.spots.length; i++){
-				if(gameObject.spots[i].number == gameObject.type){
-					if(gameObject.scene.overlap(gameObject.spots[i].x,gameObject.spots[i].y,gameObject)){
+				if(gameObject.spots[i].number == gameObject.type || gameObject.spots[i].bond.number == gameObject.type){//Провеверяем по списку подошел ли тип датчика (bond - связный датчик)
+					if(gameObject.scene.overlap(gameObject.spots[i].x,gameObject.spots[i].y,gameObject)){//Проверяем, перекрывает ли объект датчик такого типа и списка
 						gameObject.removeInteractive();
 						
-						gameObject.setScale(0.57);
+						gameObject.setScale(this.small_scale);
 						gameObject.scene.input.setDefaultCursor('default');//Ставим обычный курсор
 						gameObject.x = gameObject.spots[i].x;
 						gameObject.y = gameObject.spots[i].y;
 						
-						gameObject.scene.new_sensors[gameObject.type].amount--;
+							
+						gameObject.scene.new_sensors[gameObject.type].amount--; // вычитаем сенсор
 						gameObject.scene.new_sensors[gameObject.type].text_field.setText(gameObject.scene.new_sensors[gameObject.type].amount);
+						
+						//Проверяем по главному типу или по bond произошо совпадение
+						if (gameObject.spots[i].bond.number == gameObject.type & gameObject.type != gameObject.spots[i].number){
+							//Если да то связному объекту меняем тип на тип связного
+							gameObject.spots[i].bond.number = gameObject.spots[i].number
+						}
+						//Обрезаем связь у связного объекта
+						gameObject.spots[i].bond.bond = gameObject.spots[i].bond
+						////удаляем место из базы точек
 						gameObject.spots.splice(i,1);
 						
 						if(gameObject.spots.length == 0){
@@ -169,7 +206,7 @@ class GameScene extends Phaser.Scene{
 						
 						gameObject.scene.spawn_sensor(gameObject.type);
 						throw_back = false;
-						gameObject.scene.addScore(50); // Добавляем 50 очков
+						gameObject.scene.addScore(this.true_answ_score); // Добавляем очки за верный ответ
 						
 						break;
 					}
@@ -215,8 +252,8 @@ class GameScene extends Phaser.Scene{
 	
 	gameOver(){
 		let time_left = this.timerEvent.getRepeatCount();
-		total_score =  time_left + this.score;
 		time_score = time_left;
+		total_score =  this.score + time_score;
 		this.scene.add('EndScene',EndScene,true); // Название и класс должны быть одинаковыми
 		this.scene.remove(this);
 	}
