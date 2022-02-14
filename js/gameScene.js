@@ -50,13 +50,13 @@ class GameScene extends Phaser.Scene{
 
 		//Задаем значения bonded для конкретных мест датчиков по координатам
 		for(let spot_i = 0; spot_i < this.spots.length){
-			this.spots[spot_i].bond = this.spots[spot_i] //ссылка на самого себя
+			this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
 			//два датчика одного типа
 			if(this.spots[spot_i].х == 476 & this.spots[spot_i].y == 476){
 				for(let spot_j = 0; spot_j < this.spots.length){
 					if(this.spots[spot_j].х == 617 & this.spots[spot_j].y == 475){
-						this.spots[spot_i].bond = this.spots[spot_j]
-						this.spots[spot_j].bond = this.spots[spot_i]
+						this.spots[spot_i].bond = this.spots[spot_j];
+						this.spots[spot_j].bond = this.spots[spot_i];
 					}
 				}
 			}
@@ -192,10 +192,10 @@ class GameScene extends Phaser.Scene{
 						//Проверяем по главному типу или по bond произошо совпадение
 						if (gameObject.spots[i].bond.number == gameObject.type & gameObject.type != gameObject.spots[i].number){
 							//Если да то связному объекту меняем тип на тип связного
-							gameObject.spots[i].bond.number = gameObject.spots[i].number
+							gameObject.spots[i].bond.number = gameObject.spots[i].number;
 						}
 						//Обрезаем связь у связного объекта
-						gameObject.spots[i].bond.bond = gameObject.spots[i].bond
+						gameObject.spots[i].bond.bond = gameObject.spots[i].bond;
 						////удаляем место из базы точек
 						gameObject.spots.splice(i,1);
 						
