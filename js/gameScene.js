@@ -49,7 +49,7 @@ class GameScene extends Phaser.Scene{
 		this.draw_graphics(graphics);
 		
 		
-		set_bonds(){
+		function set_bonds(){
 			//Задаем значения bond для конкретных мест датчиков по координатам
 			for(let spot_i = 0; spot_i < this.spots.length; spot_i++){
 				this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
@@ -72,7 +72,7 @@ class GameScene extends Phaser.Scene{
 					break;
 				}
 			}
-		}
+		};
 		
 		setTimeout(set_bonds(),100);
 		
