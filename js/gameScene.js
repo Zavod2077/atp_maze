@@ -20,7 +20,7 @@ class GameScene extends Phaser.Scene{
 		//Есть идентификатор связности мест значков (bond) - нужен для выделения 2-х мест датчиков, где неважно какой датчик на какое из 2-х мест ставить.
 		//У двух связных мест есть ссылка на друг друга в индентификаторе bond
 		//данную выгрузку (this.spots) координат для новой карты завода можно сделать в приложении для расстановки мест (отдельная папка)
-		this.spots =JSON.parse(JSON.stringify([{xx:402,y:195,number:0},{x:408,y:355,number:3},{x:484,y:128,number:2},{x:475,y:82,number:1},{x:826,y:55,number:3},{x:683,y:311,number:1},{x:652,y:356,number:2},{x:616,y:423,number:3},{x:617,y:475,number:0},{x:606,y:554,number:3},{x:476,y:476,number:2},{x:892,y:484,number:3}]));
+		this.spots =JSON.parse(JSON.stringify([{x:402,y:195,number:0},{x:408,y:355,number:3},{x:484,y:128,number:2},{x:475,y:82,number:1},{x:826,y:55,number:3},{x:683,y:311,number:1},{x:652,y:356,number:2},{x:616,y:423,number:3},{x:617,y:475,number:0},{x:606,y:554,number:3},{x:476,y:476,number:2},{x:892,y:484,number:3}]));
 		
 		
 	}
@@ -51,7 +51,9 @@ class GameScene extends Phaser.Scene{
 		
 		function set_bonds(spots){
 			//Задаем значения bond для конкретных мест датчиков по координатам
+			console.log(String(spots))
 			for(let spot_i = 0; spot_i < spots.length; spot_i++){
+				
 				spots[spot_i].bond = spots[spot_i]; //ссылка на самого себя
 				//два датчика одного типа
 				console.log('\n');
