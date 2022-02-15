@@ -57,6 +57,7 @@ class GameScene extends Phaser.Scene{
 					if(this.spots[spot_j].х == 617 & this.spots[spot_j].y == 475){
 						this.spots[spot_i].bond = this.spots[spot_j];
 						this.spots[spot_j].bond = this.spots[spot_i];
+						console.log(String(this.spots[spot_i].bond));
 						break;
 					}
 				}
