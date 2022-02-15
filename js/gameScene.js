@@ -166,7 +166,7 @@ class GameScene extends Phaser.Scene{
 		this.input.on('dragstart', function(pointer, gameObject, dragX, dragY){
 			gameObject.x = pointer.position.x;
 			gameObject.y = pointer.position.y;
-			gameObject.setScale(this.small_scale);
+			gameObject.setScale(gameObject.scene.small_scale);
 			gameObject.scene.show_big_sensor(gameObject.type,false); // Прячем большую иконку датчика ( для телефонов)
 		});
 		
@@ -182,7 +182,7 @@ class GameScene extends Phaser.Scene{
 					if(gameObject.scene.overlap(gameObject.spots[i].x,gameObject.spots[i].y,gameObject)){//Проверяем, перекрывает ли объект датчик такого типа и списка
 						gameObject.removeInteractive();
 						
-						gameObject.setScale(this.small_scale);
+						gameObject.setScale(gameObject.scene.small_scale);
 						gameObject.scene.input.setDefaultCursor('default');//Ставим обычный курсор
 						gameObject.x = gameObject.spots[i].x;
 						gameObject.y = gameObject.spots[i].y;
@@ -208,7 +208,7 @@ class GameScene extends Phaser.Scene{
 						
 						gameObject.scene.spawn_sensor(gameObject.type);
 						throw_back = false;
-						gameObject.scene.addScore(this.true_answ_score); // Добавляем очки за верный ответ
+						gameObject.scene.addScore(gameObject.scene.true_answ_score); // Добавляем очки за верный ответ
 						
 						break;
 					}
