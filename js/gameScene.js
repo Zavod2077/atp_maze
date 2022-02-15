@@ -177,6 +177,7 @@ class GameScene extends Phaser.Scene{
 		
 		this.input.on('dragend', function(pointer, gameObject){
 			let throw_back = true; //Флаг - нужно ли возвращать на базу иконку
+			console.log('\n')
 			for(let i=0; i<gameObject.spots.length; i++){
 				console.log(gameObject.spots[i].number+' '+gameObject.spots[i].bond.number+' '+ gameObject.type+ '--' + String((gameObject.spots[i].number == gameObject.type | gameObject.spots[i].bond.number == gameObject.type)));
 				if(gameObject.spots[i].number == gameObject.type | gameObject.spots[i].bond.number == gameObject.type){//Провеверяем по списку подошел ли тип датчика (bond - связный датчик)
