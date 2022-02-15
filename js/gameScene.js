@@ -52,6 +52,7 @@ class GameScene extends Phaser.Scene{
 		for(let spot_i = 0; spot_i < this.spots.length; spot_i++){
 			this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
 			//два датчика одного типа
+			console.log(String(this.spots[spot_i].х)+' '+ String(this.spots[spot_i].y));
 			if(this.spots[spot_i].х == 476 & this.spots[spot_i].y == 476){
 				for(let spot_j = 0; spot_j < this.spots.length; spot_j++){
 					if(this.spots[spot_j].х == 617 & this.spots[spot_j].y == 475){
