@@ -51,7 +51,7 @@ class GameScene extends Phaser.Scene{
 		
 		function set_bonds(spots){
 			//Задаем значения bond для конкретных мест датчиков по координатам
-			console.log(String(Object.keys(spots[0])))
+			console.log(String(spots[0][Object.keys(spots[0])[0]]))
 			for(let spot_i = 0; spot_i < spots.length; spot_i++){
 				
 				spots[spot_i].bond = spots[spot_i]; //ссылка на самого себя
