@@ -179,8 +179,8 @@ class GameScene extends Phaser.Scene{
 			let throw_back = true; //Флаг - нужно ли возвращать на базу иконку
 			console.log('\n')
 			for(let i=0; i<gameObject.spots.length; i++){
-				console.log(gameObject.spots[i].number+' '+gameObject.spots[i].bond.number+' '+ gameObject.type+ '--' + String((gameObject.spots[i].number == gameObject.type | gameObject.spots[i].bond.number == gameObject.type)));
-				if(gameObject.spots[i].number == gameObject.type | gameObject.spots[i].bond.number == gameObject.type){//Провеверяем по списку подошел ли тип датчика (bond - связный датчик)
+				console.log(gameObject.spots[i].number+' '+gameObject.spots[i].bond.number+' '+ gameObject.type+ '--' + String(((gameObject.spots[i].number == gameObject.type) | (gameObject.spots[i].bond.number == gameObject.type))));
+				if((gameObject.spots[i].number == gameObject.type) | (gameObject.spots[i].bond.number == gameObject.type)){//Провеверяем по списку подошел ли тип датчика (bond - связный датчик)
 					if(gameObject.scene.overlap(gameObject.spots[i].x,gameObject.spots[i].y,gameObject)){//Проверяем, перекрывает ли объект датчик такого типа и списка
 						gameObject.removeInteractive();
 						
