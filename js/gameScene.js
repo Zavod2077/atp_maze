@@ -48,28 +48,33 @@ class GameScene extends Phaser.Scene{
 		let graphics = this.add.graphics();
 		this.draw_graphics(graphics);
 		
-		//Задаем значения bonded для конкретных мест датчиков по координатам
-		for(let spot_i = 0; spot_i < this.spots.length; spot_i++){
-			this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
-			//два датчика одного типа
-			console.log('\n');
-			console.log(String(this.spots[spot_i].х));
-			console.log(String(this.spots[spot_i].y));
-			console.log('\n');
-			console.log(String(this.spots[spot_i]['х']));
-			console.log(String(this.spots[spot_i]['y']));
-			if(this.spots[spot_i].х == 476 & this.spots[spot_i].y == 476){
-				for(let spot_j = 0; spot_j < this.spots.length; spot_j++){
-					if(this.spots[spot_j].х == 617 & this.spots[spot_j].y == 475){
-						this.spots[spot_i].bond = this.spots[spot_j];
-						this.spots[spot_j].bond = this.spots[spot_i];
-						console.log(String(this.spots[spot_i].bond));
-						break;
+		
+		set_bonds(){
+			//Задаем значения bond для конкретных мест датчиков по координатам
+			for(let spot_i = 0; spot_i < this.spots.length; spot_i++){
+				this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
+				//два датчика одного типа
+				console.log('\n');
+				console.log(String(this.spots[spot_i].х));
+				console.log(String(this.spots[spot_i].y));
+				console.log('\n');
+				console.log(String(this.spots[spot_i]['х']));
+				console.log(String(this.spots[spot_i]['y']));
+				if(this.spots[spot_i].х == 476 & this.spots[spot_i].y == 476){
+					for(let spot_j = 0; spot_j < this.spots.length; spot_j++){
+						if(this.spots[spot_j].х == 617 & this.spots[spot_j].y == 475){
+							this.spots[spot_i].bond = this.spots[spot_j];
+							this.spots[spot_j].bond = this.spots[spot_i];
+							console.log(String(this.spots[spot_i].bond));
+							break;
+						}
 					}
+					break;
 				}
-				break;
 			}
 		}
+		
+		setTimeout(set_bonds(),100);
 		
 		this.new_sensors=[
 			{x:150, y: 90, amount:0, name: 'level'},//number и type - тип датчика 0
