@@ -74,7 +74,7 @@ class GameScene extends Phaser.Scene{
 			}
 		};
 		
-		setTimeout(set_bonds(this.spots),100);
+		setTimeout(set_bonds(this.spots),3000);
 		
 		this.new_sensors=[
 			{x:150, y: 90, amount:0, name: 'level'},//number и type - тип датчика 0
