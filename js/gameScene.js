@@ -49,11 +49,11 @@ class GameScene extends Phaser.Scene{
 		this.spots =[{"x":402,"y":195,"number":0},{"x":408,"y":355,"number":3},{"x":484,"y":128,"number":2},{"x":475,"y":82,"number":1},{"x":826,"y":55,"number":3},{"x":683,"y":311,"number":1},{"x":652,"y":356,"number":2},{"x":616,"y":423,"number":3},{"x":617,"y":475,"number":0},{"x":606,"y":554,"number":3},{"x":476,"y":476,"number":2},{"x":892,"y":484,"number":3}];
 
 		//Задаем значения bonded для конкретных мест датчиков по координатам
-		for(let spot_i = 0; spot_i < this.spots.length){
+		for(let spot_i = 0; spot_i < this.spots.length; spot_i++){
 			this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
 			//два датчика одного типа
 			if(this.spots[spot_i].х == 476 & this.spots[spot_i].y == 476){
-				for(let spot_j = 0; spot_j < this.spots.length){
+				for(let spot_j = 0; spot_j < this.spots.length; spot_j++){
 					if(this.spots[spot_j].х == 617 & this.spots[spot_j].y == 475){
 						this.spots[spot_i].bond = this.spots[spot_j];
 						this.spots[spot_j].bond = this.spots[spot_i];
