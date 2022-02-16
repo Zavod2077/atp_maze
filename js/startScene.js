@@ -17,19 +17,21 @@ class StartScene extends Phaser.Scene{
 		
 		this.seconds_field.setShadow(1,1,"#000000",3);
 		let scene = this;
-		this.timerEvent = this.time.addEvent({callback:this.timerLoop, delay : 1000, repeat: this.seconds-1, callbackScope:this}); 
+		this.timerEvent = setInterval(this.timerLoop, this.seconds * 1000, this); 
 	}
 	
-	timerLoop(){
-		let progress = this.timerEvent.getRepeatCount();
-		if(progress == 0){
-			this.seconds_field.setText('Начали!');
-			this.seconds_field.setPosition(this.seconds_field.x-this.seconds_field.width/2,this.seconds_field.y);
-			this.time.delayedCall(1000, function() {
+	timerLoop(main){
+		main.seconds -=1;
+		let progress = main.seconds;
+		if(progress <= 0){
+			clearInterval(main.timerEvent);
+			main.seconds_field.setText('Начали!');
+			main.seconds_field.setPosition(main.seconds_field.x-main.seconds_field.width/2,main.seconds_field.y);
+			setTimeout(function(main) {
 				game.scene.add('GameScene',GameScene,true);
-				this.scene.remove(this);}, [], this);
+				main.scene.remove(main);},1000, main);
 		}else{
-			this.seconds_field.setText(String(progress));
+			main.seconds_field.setText(String(progress));
 		}
 	}
 }
