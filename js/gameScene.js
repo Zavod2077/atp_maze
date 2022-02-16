@@ -60,8 +60,7 @@ class GameScene extends Phaser.Scene{
 			console.log('\n');
 			
 			console.log(String(this.spots[spot_i].x));
-			console.log(String(this.spots[spot_i][spk[0]]));
-			console.log(String(this.spots[spot_i][spk[1]]));
+			console.log(String(this.spots[spot_i].y));
 			if(this.spots[spot_i][spk[0]] == 476 & this.spots[spot_i][spk[1]] == 476){
 				for(let spot_j in this.spots){
 					if(this.spots[spot_j][spk[0]] == 617 & this.spots[spot_j][spk[1]] == 475){
