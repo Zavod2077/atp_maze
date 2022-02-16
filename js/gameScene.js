@@ -20,8 +20,8 @@ class GameScene extends Phaser.Scene{
 		//Есть идентификатор связности мест значков (bond) - нужен для выделения 2-х мест датчиков, где неважно какой датчик на какое из 2-х мест ставить.
 		//У двух связных мест есть ссылка на друг друга в индентификаторе bond
 		//данную выгрузку (this.spots) координат для новой карты завода можно сделать в приложении для расстановки мест (отдельная папка)
-		let spots_1 =JSON.parse(JSON.stringify([{x:402,y:195,number:0},{x:408,y:355,number:3},{x:484,y:128,number:2},{x:475,y:82,number:1},{x:826,y:55,number:3},{x:683,y:311,number:1},{x:652,y:356,number:2},{x:616,y:423,number:3},{x:617,y:475,number:0},{x:606,y:554,number:3},{x:476,y:476,number:2},{x:892,y:484,number:3}]));
-		this.spots = spots_1;
+		this.spots =JSON.parse(JSON.stringify([{x:402,y:195,number:0},{x:408,y:355,number:3},{x:484,y:128,number:2},{x:475,y:82,number:1},{x:826,y:55,number:3},{x:683,y:311,number:1},{x:652,y:356,number:2},{x:616,y:423,number:3},{x:617,y:475,number:0},{x:606,y:554,number:3},{x:476,y:476,number:2},{x:892,y:484,number:3}]));
+		 
 		
 	}
 	
@@ -47,36 +47,38 @@ class GameScene extends Phaser.Scene{
 		
 		let graphics = this.add.graphics();
 		this.draw_graphics(graphics);
+		console.log('\n');
+		console.log(String(this.spots[String(0)].х));
 		
+		console.log('\n');
+		console.log(String(this.spots[0].y));
+		console.log('\n');
+		console.log(String(this.spots[0].x));
+		console.log('\n');
+		console.log(String(this.spots[0]['x']));
+		console.log('\n');
 		
-		function set_bonds(spots){
-			//Задаем значения bond для конкретных мест датчиков по координатам
-			console.log(String(spots[0][Object.keys(spots[0])[0]]))
-			for(let spot_i = 0; spot_i < spots.length; spot_i++){
-				
-				spots[spot_i].bond = spots[spot_i]; //ссылка на самого себя
-				//два датчика одного типа
-				console.log('\n');
-				console.log(String(spots[spot_i].хx));
-				console.log(String(spots[spot_i].y));
-				console.log('\n');
-				console.log(String(spots[spot_i]['х']));
-				console.log(String(spots[spot_i]['y']));
-				if(spots[spot_i].х == 476 & spots[spot_i].y == 476){
-					for(let spot_j = 0; spot_j < spots.length; spot_j++){
-						if(spots[spot_j].х == 617 & spots[spot_j].y == 475){
-							spots[spot_i].bond = spots[spot_j];
-							spots[spot_j].bond = spots[spot_i];
-							console.log(String(spots[spot_i].bond));
-							break;
-						}
+		//Задаем значения bond для конкретных мест датчиков по координатам
+		console.log(String(this.spots[0][Object.keys(spots[0])[0]]))
+		for(let spot_i = 0; spot_i < this.spots.length; spot_i++){
+			
+			this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
+			//два датчика одного типа
+			console.log('\n');
+			console.log(String(this.spots[String(spot_i)].х));
+			console.log(String(this.spots[spot_i].y));
+			if(this.spots[spot_i].х == 476 & this.spots[spot_i].y == 476){
+				for(let spot_j = 0; spot_j < this.spots.length; spot_j++){
+					if(this.spots[spot_j].х == 617 & this.spots[spot_j].y == 475){
+						this.spots[spot_i].bond = this.spots[spot_j];
+						this.spots[spot_j].bond = this.spots[spot_i];
+						console.log(String(this.spots[spot_i].bond));
+						break;
 					}
-					break;
 				}
+				break;
 			}
-		};
-		
-		setTimeout(set_bonds,3000,this.spots);
+		}
 		
 		this.new_sensors=[
 			{x:150, y: 90, amount:0, name: 'level'},//number и type - тип датчика 0
