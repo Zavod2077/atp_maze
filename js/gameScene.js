@@ -117,7 +117,7 @@ class GameScene extends Phaser.Scene{
 		}
 		
 		//Настраиваем таймер
-		this.timerEvent = setInterval(this.timerLoop, 1000); 
+		this.timerEvent = setInterval(this.timerLoop, 1000, this); 
 		
 		this.set_icon_listeners();
     }
@@ -147,13 +147,12 @@ class GameScene extends Phaser.Scene{
 	}
 	
 	//Функция таймера, раз в секунду = delay
-	timerLoop(){
-		this.time_amount -= 1000;
-		let progress = this.time_amount/1000;
-		console.log(progress);
-		this.timer_field.setText("Таймер: "+String(progress)+' сек');
+	timerLoop(main){
+		main.time_amount -= 1000;
+		let progress = main.time_amount/1000 ;
+		main.timer_field.setText("Таймер: "+String(progress)+' сек');
 		if(progress <= 0){
-			this.gameOver();
+			main.gameOver();
 		}
 	}
 	
