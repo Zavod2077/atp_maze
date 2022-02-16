@@ -1,5 +1,5 @@
 
-//данную выгрузку (this.spots) координат для новой карты завода можно сделать в приложении для расстановки мест (отдельная папка)
+//данную выгрузку (this.spots) координат для новой карты завода можно сделать в приложении для расстановки мест (отдельная папка - spots_selector)
 var data = JSON.parse(JSON.stringify([{x:402,y:195,number:0},{x:408,y:355,number:3},{x:484,y:128,number:2},{x:475,y:82,number:1},{x:826,y:55,number:3},{x:683,y:311,number:1},{x:652,y:356,number:2},{x:616,y:423,number:3},{x:617,y:475,number:0},{x:606,y:554,number:3},{x:476,y:476,number:2},{x:892,y:484,number:3}]));
 
 class GameScene extends Phaser.Scene{
@@ -187,8 +187,6 @@ class GameScene extends Phaser.Scene{
 			let throw_back = true; //Флаг - нужно ли возвращать на базу иконку
 			console.log('\n')
 			for(let i=0; i<gameObject.spots.length; i++){
-				console.log(gameObject.spots[i]);
-				console.log(gameObject.spots[i].number+' '+gameObject.spots[i].bond.number+' '+ gameObject.type+ '--' + String(((gameObject.spots[i].number == gameObject.type) | (gameObject.spots[i].bond.number == gameObject.type))));
 				if((gameObject.spots[i].number == gameObject.type) | (gameObject.spots[i].bond.number == gameObject.type)){//Провеверяем по списку подошел ли тип датчика (bond - связный датчик)
 					if(gameObject.scene.overlap(gameObject.spots[i].x,gameObject.spots[i].y,gameObject)){//Проверяем, перекрывает ли объект датчик такого типа и списка
 						gameObject.removeInteractive();
