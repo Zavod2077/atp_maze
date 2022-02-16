@@ -63,7 +63,6 @@ class GameScene extends Phaser.Scene{
 						break;
 					}
 				}
-				break;
 			}
 		}
 		
