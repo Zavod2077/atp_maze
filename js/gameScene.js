@@ -51,7 +51,7 @@ class GameScene extends Phaser.Scene{
 		
 		//Есть идентификатор связности мест значков (bond) - нужен для выделения 2-х мест датчиков, где неважно какой датчик на какое из 2-х мест ставить.
 		//У двух связных мест есть ссылка на друг друга в индентификаторе bond
-		//Задаем значения bond_number для конкретных мест датчиков по координатам
+		//Задаем значения bond для конкретных мест датчиков по координатам
 		for(let spot_i in this.spots){
 			this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
 			//два датчика одного типа
@@ -65,12 +65,6 @@ class GameScene extends Phaser.Scene{
 				}
 			}
 		}
-		
-		//Объект с переменными, без этого (напрямую) переменные с объетов не читаются, хотя так быть не должно
-		let spots_keys=Object.keys(this.spots[0]);
-		let spk = spots_keys;
-		console.log(spk);
-		console.log(this.spots[0].bond);
 		
 		this.new_sensors=[
 			{x:150, y: 90, amount:0, name: 'level'},//number и type - тип датчика 0
@@ -123,7 +117,7 @@ class GameScene extends Phaser.Scene{
 		}
 		
 		//Настраиваем таймер
-		this.timerEvent = this.time.addEvent({callback:this.timerLoop, delay : 1000, repeat: Math.round(this.time_amount/1000)-1, callbackScope:this}); 
+		this.timerEvent = setInterval(this.timerLoop, 1000); 
 		
 		this.set_icon_listeners();
     }
@@ -154,9 +148,10 @@ class GameScene extends Phaser.Scene{
 	
 	//Функция таймера, раз в секунду = delay
 	timerLoop(){
-		let progress = this.timerEvent.getRepeatCount();
+		this.time_amount -= 1000;
+		let progress = this.time_amount/1000 ;
 		this.timer_field.setText("Таймер: "+String(progress)+' сек');
-		if(progress == 0){
+		if(progress <= 0){
 			this.gameOver();
 		}
 	}
@@ -262,7 +257,8 @@ class GameScene extends Phaser.Scene{
 	} 
 	
 	gameOver(){
-		let time_left = this.timerEvent.getRepeatCount();
+		clearInterval(this.timerEvent);
+		let time_left = this.time_amount/1000;
 		time_score = time_left;
 		total_score =  this.score + time_score;
 		this.scene.add('EndScene',EndScene,true); // Название и класс должны быть одинаковыми
