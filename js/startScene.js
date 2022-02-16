@@ -17,7 +17,7 @@ class StartScene extends Phaser.Scene{
 		
 		this.seconds_field.setShadow(1,1,"#000000",3);
 		let scene = this;
-		this.timerEvent = setInterval(this.timerLoop, this.seconds * 1000, this); 
+		this.timerEvent = setInterval(this.timerLoop, 1000, this); 
 	}
 	
 	timerLoop(main){
