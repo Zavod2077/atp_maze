@@ -149,7 +149,8 @@ class GameScene extends Phaser.Scene{
 	//Функция таймера, раз в секунду = delay
 	timerLoop(){
 		this.time_amount -= 1000;
-		let progress = this.time_amount/1000 ;
+		let progress = this.time_amount/1000;
+		console.log(progress);
 		this.timer_field.setText("Таймер: "+String(progress)+' сек');
 		if(progress <= 0){
 			this.gameOver();
