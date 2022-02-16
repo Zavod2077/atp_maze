@@ -71,6 +71,7 @@ class GameScene extends Phaser.Scene{
 		let spots_keys=Object.keys(this.spots[0]);
 		let spk = spots_keys;
 		console.log(spk);
+		console.log(this.spots[0].bond);
 		
 		this.new_sensors=[
 			{x:150, y: 90, amount:0, name: 'level'},//number и type - тип датчика 0
