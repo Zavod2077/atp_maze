@@ -50,9 +50,7 @@ class GameScene extends Phaser.Scene{
 		this.draw_graphics(graphics);
 		
 		
-		//Объект с переменными, без этого (напрямую) переменные с объетов не читаются, хотя так быть не должно
-		let spots_keys=Object.keys(this.spots[0]);
-		let spk = spots_keys;
+
 		//Задаем значения bond для конкретных мест датчиков по координатам
 		for(let spot_i in this.spots){
 			this.spots[spot_i].bond = spot_i; //ссылка на самого себя
@@ -68,6 +66,11 @@ class GameScene extends Phaser.Scene{
 				break;
 			}
 		}
+		
+		//Объект с переменными, без этого (напрямую) переменные с объетов не читаются, хотя так быть не должно
+		let spots_keys=Object.keys(this.spots[0]);
+		let spk = spots_keys;
+		console.log(spk);
 		
 		this.new_sensors=[
 			{x:150, y: 90, amount:0, name: 'level'},//number и type - тип датчика 0
