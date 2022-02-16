@@ -50,22 +50,22 @@ class GameScene extends Phaser.Scene{
 		//Задаем значения bond для конкретных мест датчиков по координатам
 		let spots_keys=Object.keys(this.spots[0]);
 		for(let spot_i in this.spots){
-			spot_i.bond = spot_i; //ссылка на самого себя
+			this.spots[spot_i].bond = spot_i; //ссылка на самого себя
 			//два датчика одного типа
 			console.log('\n');
-			console.log(String(spot_i.y));
-			console.log(String(spot_i.х));
-			if(spot_i.х == 476 & spot_i.y == 476){
-				for(let spot_j in this.spots){
-					if(spot_j.х == 617 & spot_j.y == 475){
-						spot_i.bond = spot_j;
-						spot_j.bond = spot_i;
-						console.log(String(spot_j.bond));
-						break;
-					}
-				}
-				break;
-			}
+			console.log(String(this.spots[spot_i].y));
+			console.log(String(this.spots[spot_i].х));
+			//if(spot_i.х == 476 & spot_i.y == 476){
+				//for(let spot_j in this.spots){
+				//	if(spot_j.х == 617 & spot_j.y == 475){
+					//	spot_i.bond = spot_j;
+					//	spot_j.bond = spot_i;
+					//	console.log(String(spot_j.bond));
+						//break;
+					//}
+				//}
+				//break;
+			//}
 		}
 		
 		this.new_sensors=[
