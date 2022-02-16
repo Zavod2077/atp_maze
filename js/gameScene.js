@@ -229,7 +229,7 @@ class GameScene extends Phaser.Scene{
 					gameObject.scene.helmet_images[lifes].destroy();
 					gameObject.scene.helmet_images.splice(lifes,1);
 					if(lifes == 0){	
-						gameObject.scene.timerEvent.remove(); //Удаляем бонус за вермя
+						gameObject.scene.time_amount = 0; //Удаляем бонус за вермя
 						gameObject.scene.gameOver();
 						return;
 					};
