@@ -48,7 +48,7 @@ class GameScene extends Phaser.Scene{
 		this.draw_graphics(graphics);
 		
 		//Задаем значения bond для конкретных мест датчиков по координатам
-		let spots_keys=[Object.keys(this.spots[0])
+		let spots_keys=Object.keys(this.spots[0]);
 		for(let spot_i in this.spots){
 			spot_i.bond = spot_i; //ссылка на самого себя
 			//два датчика одного типа
