@@ -44,13 +44,13 @@ class GameScene extends Phaser.Scene{
 		let backg = this.add.image(200,0,'background');
 		backg.setOrigin(0,0);
 		
-		
 		let graphics = this.add.graphics();
 		this.draw_graphics(graphics);
+		
 		//Задаем значения bond для конкретных мест датчиков по координатам
 		console.log(String(this.spots[0][Object.keys(this.spots[0])[0]]))
 		for(let spot_i = 0; spot_i < this.spots.length; spot_i++){
-			this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
+			//this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
 			//два датчика одного типа
 			console.log('\n');
 			console.log(String(this.spots[Number(spot_i)].х));
