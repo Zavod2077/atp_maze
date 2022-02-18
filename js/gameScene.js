@@ -52,10 +52,13 @@ class GameScene extends Phaser.Scene{
 		//У двух связных мест есть ссылка на друг друга в индентификаторе bond
 		//Задаем значения bond для конкретных мест датчиков по координатам
 		for(let spot_i in this.spots){
-			this.spots[spot_i].bond = this.spots[spot_i]; //ссылка на самого себя
+			//изначально у мест в bond ссылка на самих себя
+			this.spots[spot_i].bond = this.spots[spot_i]; 
 			//два датчика одного типа
+			//координаты 1го датчика пары
 			if(this.spots[spot_i].x == 476 & this.spots[spot_i].y == 476){
 				for(let spot_j in this.spots){
+					//координаты 2го датчика пары
 					if(this.spots[spot_j].x == 617 & this.spots[spot_j].y == 475){
 						this.spots[spot_i].bond = this.spots[spot_j];
 						this.spots[spot_j].bond = this.spots[spot_i];
